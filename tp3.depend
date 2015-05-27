@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1432751432 source:/home/marcin/Development/C++/tp3/dzwig.cpp
+	"dzwig.hpp"
+	<iostream>
+
+1432751109 /home/marcin/Development/C++/tp3/dzwig.hpp
+
+1432751868 source:/home/marcin/Development/C++/tp3/main.cpp
+	<cstdio>
+	<SDL2/SDL.h>
+	"dzwig.hpp"
+
