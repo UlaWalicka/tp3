@@ -16,10 +16,19 @@ int main( int argc, char** argv )
             {
                 while( SDL_PollEvent( &event ) ){
                     switch( event.type ){
-                    
+                        case SDL_WINDOWEVENT:
+                            switch( event.window.type )
+                            {
+                                //Zamkniecie okna konczy program
+                                case SDL_WINDOWEVENT_CLOSED:
+                                quit = true;
+                                break;
+                            }
+                        break;
                     }
                 }
             }
         }
     }
+    SDL_Quit();
 }
