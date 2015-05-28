@@ -1,0 +1,2 @@
+#include "obiekt.hpp"
+
