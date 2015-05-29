@@ -197,3 +197,4 @@ FakesAssemblies/
 
 # Code::Blocks
 *.depend
+*.layout
