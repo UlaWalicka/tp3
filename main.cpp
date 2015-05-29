@@ -11,7 +11,7 @@ int main( int argc, char *argv[] )
         SDL_Window* window;
         SDL_Renderer* renderer;
 
-        if(!SDL_CreateWindowAndRenderer( 1024, 600, 0, &window, &renderer )){
+        if(!SDL_CreateWindowAndRenderer( dzwig::WORLDSIZE_X, dzwig::WORLDSIZE_Y, 0, &window, &renderer )){
             SDL_Event event;
 
             bool quit = false;
@@ -37,9 +37,9 @@ int main( int argc, char *argv[] )
                     }
                 }
 
-				SDL_SetRenderDrawColor( renderer, 82, 82, 82, 255 );
+				SDL_SetRenderDrawColor( renderer, 157, 200, 204, 255 );
 				SDL_RenderClear( renderer );
-				dzwig::update();
+				dzwig::update( 0 );
 				dzwig::draw( renderer );
 				SDL_RenderPresent( renderer );
 
