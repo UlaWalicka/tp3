@@ -1,16 +1,16 @@
 #include <cstdio>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 #include "dzwig.hpp"
 
-int main( int argc, char** argv )
+int main( int argc, char *argv[] )
 {
     if(!SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER ) )
     {
         SDL_Window* window;
         SDL_Renderer* renderer;
 
-        if(!SDL_CreateWindowAndRenderer( 1024, 768, 0, &window, &renderer )){
+        if(!SDL_CreateWindowAndRenderer( 1024, 600, 0, &window, &renderer )){
             SDL_Event event;
 
             bool quit = false;
@@ -36,8 +36,11 @@ int main( int argc, char** argv )
                     }
                 }
 
+				SDL_SetRenderDrawColor( renderer, 82, 82, 82, 255 );
+				SDL_RenderClear( renderer );
 				dzwig::update();
 				dzwig::draw();
+				SDL_RenderPresent( renderer );
 
 				// Czekamy 10ms aby odciazyc procesor :)
 				SDL_Delay( 10 );
