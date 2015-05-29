@@ -2,6 +2,11 @@
 
 namespace dzwig
 {
+    Object::Object()
+    {
+        this->parent = NULL;
+    }
+
     void Object::setPosition( float x, float y )
     {
         this->x = x;
@@ -27,9 +32,19 @@ namespace dzwig
         return this->x;
     }
 
+    float Object::getAbsX()
+    {
+        return this->abs_x;
+    }
+
     float Object::getY()
     {
         return this->y;
+    }
+
+    float Object::getAbsY()
+    {
+        return this->abs_y;
     }
 
     void Object::setSize( float w, float h )
@@ -51,10 +66,14 @@ namespace dzwig
 	void Object::update( float delta )
 	{
         updateAbsolutePosition();
+        updateChildren( delta );
+	}
+
+	void Object::updateChildren( float delta )
+	{
         for( std::list<Object*>::iterator it = children.begin(); it != children.end(); it++ ){
             (*it)->update( delta );
         }
-
 	}
 
 	void Object::draw( SDL_Renderer* renderer )
@@ -62,6 +81,12 @@ namespace dzwig
 		SDL_SetRenderDrawColor( renderer, 255, 255, 0, 255 );
 		SDL_Rect rect = { abs_x - w/2, abs_y - h/2, w, h };
 		SDL_RenderDrawRect( renderer, &rect );
+		
+        drawChildren( renderer ); // przekaz rysowanie do dzieci tego obiektu
+	}
+
+	void Object::drawChildren( SDL_Renderer* renderer )
+	{
         for( std::list<Object*>::iterator it = children.begin(); it != children.end(); it++ ){
             (*it)->draw( renderer );
         }
@@ -73,7 +98,6 @@ namespace dzwig
             ty >= ( this->y - this->w/2 ) && ty < ( this->y + this->w/2 ) ){
                 return true;
             }
-        return false;
 	}
 
 	void Object::setParent( Object* obj )

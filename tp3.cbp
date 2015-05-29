@@ -35,11 +35,15 @@
 		<Linker>
 			<Add library="SDL2" />
 		</Linker>
+		<Unit filename="chwytak.cpp" />
+		<Unit filename="chwytak.hpp" />
 		<Unit filename="dzwig.cpp" />
 		<Unit filename="dzwig.hpp" />
+		<Unit filename="figura.cpp" />
+		<Unit filename="figura.hpp" />
 		<Unit filename="main.cpp" />
-		<Unit filename="obiekt.cpp" />
-		<Unit filename="obiekt.hpp" />
+		<Unit filename="object.cpp" />
+		<Unit filename="object.hpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

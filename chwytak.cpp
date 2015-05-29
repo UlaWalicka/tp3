@@ -2,9 +2,11 @@
 #include "dzwig.hpp"
 
 #include <cstdio>
+#include <list>
 
 namespace dzwig
 {
+    extern std::list<Figura*> figury;
 
     void Chwytak::setBounds( float min_x, float max_x, float min_y, float max_y )
     {
@@ -44,5 +46,58 @@ namespace dzwig
             this->h = (GROUNDLEVEL - this->abs_y)*2;
         else
             this->h = h;
+    }
+
+    void Chwytak::update( float delta )
+    {
+        Object::update( delta );
+
+        // spód chwytaka
+        float hx, hy;
+        hx = abs_x;
+        hy = abs_y + h/2;
+
+        hover = NULL;
+        for( std::list<Figura*>::iterator it = figury.begin(); it != figury.end(); it++ ){
+            if( (*it)->collides( hx, hy ) ){
+                hover = *it;
+                break;
+            }
+        }
+
+        if( grab ){
+            grab->setPosition( abs_x + grab_x, abs_y + h/2 + grab_y );
+        }
+    }
+
+    void Chwytak::draw( SDL_Renderer* renderer )
+    {
+        if( hover != NULL )
+            SDL_SetRenderDrawColor( renderer, 255, 255, 0, 255 );
+		else
+            SDL_SetRenderDrawColor( renderer, 109, 62, 110, 255 );
+
+		SDL_Rect rect = { abs_x - w/2, abs_y - h/2, w, h };
+		SDL_RenderDrawRect( renderer, &rect );
+
+        drawChildren( renderer );
+    }
+
+    void Chwytak::tryGrab()
+    {
+        printf("Trygrab ");
+        if( grab ){
+            grab->setGravity( true );
+            grab = NULL;
+            printf("failed\n");
+        }else if( hover ){
+            grab = hover;
+            grab_x = grab->getAbsX() - abs_x;
+            grab_y = grab->getAbsY() - ( abs_y + h/2 );
+            grab->setGravity( false );
+            printf("good\n");
+        }else{
+            printf("nothing\n");
+        }
     }
 }

@@ -19,9 +19,13 @@ namespace dzwig
         float abs_x, abs_y;
 
     public:
+        Object();
+
         virtual void setPosition( float x, float y );
         float getX();
+        float getAbsX();
         float getY();
+        float getAbsY();
 
         virtual void setSize( float w, float h );
         float getW();
@@ -29,8 +33,10 @@ namespace dzwig
         // logika obiektu
         // delta - czas w milisekundach od ostatniego wywolania
         virtual void update( float delta );
+        void updateChildren( float delta );
         //
         virtual void draw( SDL_Renderer* renderer );
+        void drawChildren( SDL_Renderer* renderer );
         virtual bool collides( float tx, float ty );
 
         void setParent( Object* parent );

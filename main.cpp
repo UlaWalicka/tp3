@@ -34,6 +34,10 @@ int main( int argc, char *argv[] )
                                 break;
                             }
                         break;
+
+                        case SDL_KEYDOWN:
+                            dzwig::keyDown( event.key );
+                        break;
                     }
                 }
 

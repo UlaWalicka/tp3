@@ -6,6 +6,8 @@
 #include "object.hpp"
 #include "chwytak.hpp"
 
+#include "figura.hpp"
+
 namespace dzwig
 {
 
@@ -14,6 +16,10 @@ namespace dzwig
     Object dzwig_podstawa;
     Object dzwig_ramie;
     Chwytak dzwig_wysiegnik;
+    
+    std::list<Figura*> figury;
+
+    Figura* figura;
 
 	void init()
 	{
@@ -32,6 +38,18 @@ namespace dzwig
         dzwig_wysiegnik.setPosition( dzwig_ramie.getW()/2, dzwig_ramie.getH()/2 );
 
         dzwig_wysiegnik.setParent( &dzwig_ramie );
+
+        figura = new Figura;
+        figura->setPosition( 400, 0 );
+        figury.push_back( figura );
+
+        figura = new Figura;
+        figura->setPosition( 400, -100 );
+        figury.push_back( figura );
+
+        figura = new Figura;
+        figura->setPosition( 400, -300 );
+        figury.push_back( figura );
 
 	}
 
@@ -72,6 +90,27 @@ namespace dzwig
         if( states[SDL_SCANCODE_UP] ){
             dzwig_wysiegnik.setSize( dzwig_wysiegnik.getW(), dzwig_wysiegnik.getH()-1 );
         }
+
+        for( std::list<Figura*>::iterator it = figury.begin(); it != figury.end(); it++ ){
+            (*it)->update( delta );
+        }
+	}
+
+	void keyDown( SDL_KeyboardEvent event )
+	{
+        if ( event.keysym.scancode == SDL_SCANCODE_SPACE ){
+            dzwig_wysiegnik.tryGrab();
+        }
+	}
+
+	Figura* collides( float tx, float ty )
+	{
+        for( std::list<Figura*>::iterator it = figury.begin(); it != figury.end(); it++ ){
+            if( (*it)->collides( tx, ty ) ){
+                return *it;
+            }
+        }
+        return NULL;
 	}
 
 }
