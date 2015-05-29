@@ -4,7 +4,7 @@
 namespace dzwig
 {
 	void init();
-	void draw();
+	void draw( SDL_Renderer* renderer );
 	void update();
 }
 
