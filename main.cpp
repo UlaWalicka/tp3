@@ -3,6 +3,7 @@
 #include <SDL.h>
 
 #include "dzwig.hpp"
+#include "timer.hpp"
 
 int main( int argc, char *argv[] )
 {
@@ -13,11 +14,12 @@ int main( int argc, char *argv[] )
 
         if(!SDL_CreateWindowAndRenderer( dzwig::WORLDSIZE_X, dzwig::WORLDSIZE_Y, 0, &window, &renderer )){
             SDL_Event event;
-
+            Timer timer;
             bool quit = false;
 
             //inicjalizacja symulatora
             dzwig::init();
+            timer.start();
 
             while( !quit )
             {
@@ -43,7 +45,10 @@ int main( int argc, char *argv[] )
 
 				SDL_SetRenderDrawColor( renderer, 157, 200, 204, 255 );
 				SDL_RenderClear( renderer );
-				dzwig::update( 0 );
+
+				timer.measure();
+				dzwig::update( timer.getDelta() );
+
 				dzwig::draw( renderer );
 				SDL_RenderPresent( renderer );
 

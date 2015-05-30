@@ -69,7 +69,7 @@ namespace dzwig
         if( gravity ){ // mozna spasc
             Figura* collider = dzwig::collides( x, y+1+h/2 );
             if( !collider || collider == this )
-                setPosition( x, y+1 );
+                setPosition( x, y+300*delta );
         }
     }
 

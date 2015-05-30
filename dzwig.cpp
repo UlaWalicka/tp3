@@ -79,25 +79,26 @@ namespace dzwig
 
         // Poruszanie wysiegnika w prawo
         if( states[SDL_SCANCODE_RIGHT] ){
-            dzwig_wysiegnik.setPosition( dzwig_wysiegnik.getX() + CHWYTAK_HSPEED, dzwig_wysiegnik.getY() );
+            dzwig_wysiegnik.setPosition( dzwig_wysiegnik.getX() + CHWYTAK_HSPEED*delta, dzwig_wysiegnik.getY() );
         }
         // Poruszanie wysiegnika w lewo
         if( states[SDL_SCANCODE_LEFT] ){
-            dzwig_wysiegnik.setPosition( dzwig_wysiegnik.getX() - CHWYTAK_HSPEED, dzwig_wysiegnik.getY() );
+            dzwig_wysiegnik.setPosition( dzwig_wysiegnik.getX() - CHWYTAK_HSPEED*delta, dzwig_wysiegnik.getY() );
         }
 
         // Opuszczanie wysiegnika
         if( states[SDL_SCANCODE_DOWN] ){
-            dzwig_wysiegnik.setSize( dzwig_wysiegnik.getW(), dzwig_wysiegnik.getH()+1 );
+            dzwig_wysiegnik.setSize( dzwig_wysiegnik.getW(), dzwig_wysiegnik.getH()+CHWYTAK_VSPEED*delta );
         }
 
         if( states[SDL_SCANCODE_UP] ){
-            dzwig_wysiegnik.setSize( dzwig_wysiegnik.getW(), dzwig_wysiegnik.getH()-1 );
+            dzwig_wysiegnik.setSize( dzwig_wysiegnik.getW(), dzwig_wysiegnik.getH()-CHWYTAK_VSPEED*delta );
         }
 
         for( std::list<Figura*>::iterator it = figury.begin(); it != figury.end(); it++ ){
             (*it)->update( delta );
         }
+
 	}
 
 	void keyDown( SDL_KeyboardEvent event )
