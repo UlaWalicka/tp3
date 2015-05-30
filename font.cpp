@@ -49,7 +49,6 @@ int Font::load( const char* file, int charw, int charh )
 
 void Font::print( const char* text, int x, int y )
 {
-    printf( "printing text %s", text );
     while( *text )
     {
         char c = *text++;
@@ -64,7 +63,6 @@ void Font::print( const char* text, int x, int y )
         else{
             continue;
         }
-        printf( " %d(%d)", frameid, c );
         SDL_Rect srcrect = {frameid*charw, 0, charw, charh};
         SDL_Rect destrect = {x,y, charw*scale, charh*scale};
         SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
@@ -72,5 +70,4 @@ void Font::print( const char* text, int x, int y )
             printf( "SDL_RenderCopy error! '%s'", SDL_GetError() );
         x+=charw*scale;
     }
-    printf("\n");
 }
