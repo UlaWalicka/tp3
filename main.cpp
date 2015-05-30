@@ -18,7 +18,7 @@ int main( int argc, char *argv[] )
             bool quit = false;
 
             //inicjalizacja symulatora
-            dzwig::init();
+            dzwig::init( renderer );
             timer.start();
 
             while( !quit )
@@ -38,7 +38,7 @@ int main( int argc, char *argv[] )
                         break;
 
                         case SDL_KEYDOWN:
-                            dzwig::keyDown( event.key );
+                            dzwig::keyEvent( event.key );
                         break;
                     }
                 }

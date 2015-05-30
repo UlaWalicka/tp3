@@ -41,9 +41,13 @@
 		<Unit filename="dzwig.hpp" />
 		<Unit filename="figura.cpp" />
 		<Unit filename="figura.hpp" />
+		<Unit filename="font.cpp" />
+		<Unit filename="font.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="object.cpp" />
 		<Unit filename="object.hpp" />
+		<Unit filename="timer.cpp" />
+		<Unit filename="timer.hpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
