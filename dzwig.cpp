@@ -3,10 +3,10 @@
 #include <iostream>
 #include <list>
 
-#include "object.hpp"
 #include "chwytak.hpp"
-
 #include "figura.hpp"
+#include "font.hpp"
+#include "object.hpp"
 
 namespace dzwig
 {
@@ -21,9 +21,16 @@ namespace dzwig
 
     Figura* figura;
 
-	void init()
+    Font* czcionka;
+
+	void init( SDL_Renderer* renderer )
 	{
         std::cout<<"Dzwig zainicjowany"<<std::endl;
+
+        czcionka = new Font();
+        czcionka->setRenderer( renderer );
+        czcionka->setScale( 2 );
+        czcionka->load( "resources/marcinfonto.bmp", 6, 8 );
 
         dzwig_podstawa.setSize( 64, GROUNDLEVEL-100 );
         dzwig_podstawa.setPosition( 48, GROUNDLEVEL-dzwig_podstawa.getH()/2 );
@@ -69,6 +76,8 @@ namespace dzwig
         for( std::list<Figura*>::iterator it = figury.begin(); it != figury.end(); it++ ){
             (*it)->draw( renderer );
         }
+
+        czcionka->print( "ULKA OBCZAJ TEN TEKST ;) ( a jak jest dla Ciebie za duzy to nacisnij M )", 100, 100 );
 	}
 
 	void update( float delta )
@@ -101,10 +110,18 @@ namespace dzwig
 
 	}
 
-	void keyDown( SDL_KeyboardEvent event )
+	void keyEvent( SDL_KeyboardEvent event )
 	{
-        if ( event.keysym.scancode == SDL_SCANCODE_SPACE ){
+        keyDown( event.keysym.scancode );
+	}
+
+	void keyDown( int code )
+	{
+        if ( code == SDL_SCANCODE_SPACE ){
             dzwig_wysiegnik.tryGrab();
+        }
+        if( code == SDL_SCANCODE_M ){
+            czcionka->setScale( 1 );
         }
 	}
 

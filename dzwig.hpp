@@ -20,11 +20,12 @@ namespace dzwig
 
     extern std::list<Figura*> figury;
 
-	void init();
+	void init( SDL_Renderer* renderer );
 	void draw( SDL_Renderer* renderer );
 	void update( float delta );
 
-	void keyDown( SDL_KeyboardEvent event );
+	void keyEvent( SDL_KeyboardEvent event );
+    void keyDown( int code );
 
 	Figura* collides( float tx, float ty );
 }
