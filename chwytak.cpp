@@ -85,19 +85,14 @@ namespace dzwig
 
     void Chwytak::tryGrab()
     {
-        printf("Trygrab ");
         if( grab ){
             grab->setGravity( true );
             grab = NULL;
-            printf("failed\n");
         }else if( hover ){
             grab = hover;
             grab_x = grab->getAbsX() - abs_x;
             grab_y = grab->getAbsY() - ( abs_y + h/2 );
             grab->setGravity( false );
-            printf("good\n");
-        }else{
-            printf("nothing\n");
         }
     }
 }

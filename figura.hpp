@@ -21,12 +21,15 @@ namespace dzwig
 
         public:
         Figura();
+        Figura( int shape );
 
         void setGravity( bool );
         bool getGravity();
         virtual void update( float delta );
+        virtual void draw( SDL_Renderer* renderer );
         virtual void setPosition( float x, float y );
         virtual bool collides( float tx, float ty );
+        void setShape( int shape );
     };
 
 }

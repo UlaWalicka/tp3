@@ -2,6 +2,8 @@
 
 #include "dzwig.hpp"
 
+#include <SDL.h>
+
 namespace dzwig
 {
     extern std::list<Figura*> figury;
@@ -10,6 +12,14 @@ namespace dzwig
     {
         gravity = true;
         shape = FIGURA_KWADRAT;
+        w = Figura::W;
+        h = Figura::H;
+    }
+
+    Figura::Figura( int shape )
+    {
+        gravity = true;
+        this->shape = shape;
         w = Figura::W;
         h = Figura::H;
     }
@@ -32,6 +42,28 @@ namespace dzwig
         }
     }
 
+    void Figura::draw( SDL_Renderer* renderer )
+    {
+
+        SDL_SetRenderDrawColor( renderer, 100, 255, 0, 255 );
+        switch( shape )
+        {
+            case FIGURA_KWADRAT:
+            {
+                SDL_Rect rect = {abs_x - w/2, abs_y - h/2, w, h };
+                SDL_RenderFillRect( renderer, &rect );
+            }
+            break;
+
+            case FIGURA_TROJKAT:
+            SDL_Point points[6] = { abs_x, abs_y - h/2, abs_x+w/2, abs_y+h/2,
+                                    abs_x+w/2, abs_y+h/2, abs_x-w/2, abs_y+h/2,
+                                    abs_x-w/2, abs_y+h/2, abs_x, abs_y-h/2};
+            SDL_RenderDrawLines( renderer, points, 6 );
+            break;
+        }
+    }
+
     void Figura::update( float delta )
     {
         if( gravity ){ // mozna spasc
@@ -39,6 +71,11 @@ namespace dzwig
             if( !collider || collider == this )
                 setPosition( x, y+1 );
         }
+    }
+
+    void Figura::setShape( int shape )
+    {
+        this->shape = shape;
     }
 
     bool Figura::collides( float tx, float ty )

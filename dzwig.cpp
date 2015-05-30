@@ -43,7 +43,7 @@ namespace dzwig
         figura->setPosition( 400, 0 );
         figury.push_back( figura );
 
-        figura = new Figura;
+        figura = new Figura( FIGURA_TROJKAT );
         figura->setPosition( 400, -100 );
         figury.push_back( figura );
 
