@@ -16,7 +16,7 @@ namespace dzwig
     Object dzwig_podstawa;
     Object dzwig_ramie;
     Chwytak dzwig_wysiegnik;
-    
+
     std::list<Figura*> figury;
 
     Figura* figura;
@@ -65,6 +65,10 @@ namespace dzwig
         SDL_RenderFillRect( renderer, &rect );
 
         dzwig_podstawa.draw( renderer );
+
+        for( std::list<Figura*>::iterator it = figury.begin(); it != figury.end(); it++ ){
+            (*it)->draw( renderer );
+        }
 	}
 
 	void update( float delta )
