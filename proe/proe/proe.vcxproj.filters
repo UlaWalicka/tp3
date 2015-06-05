@@ -15,51 +15,51 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\dzwig.cpp">
+    <ClCompile Include="..\..\chwytak.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\main.cpp">
+    <ClCompile Include="..\..\dzwig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\chwytak.cpp">
+    <ClCompile Include="..\..\figura.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\figura.cpp">
+    <ClCompile Include="..\..\font.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\font.cpp">
+    <ClCompile Include="..\..\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\object.cpp">
+    <ClCompile Include="..\..\object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\timer.cpp">
+    <ClCompile Include="..\..\objectbmp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\objectbmp.cpp">
+    <ClCompile Include="..\..\timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\dzwig.hpp">
+    <ClInclude Include="..\..\chwytak.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\chwytak.hpp">
+    <ClInclude Include="..\..\dzwig.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\figura.hpp">
+    <ClInclude Include="..\..\figura.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\font.hpp">
+    <ClInclude Include="..\..\font.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\object.hpp">
+    <ClInclude Include="..\..\object.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\timer.hpp">
+    <ClInclude Include="..\..\objectbmp.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\objectbmp.hpp">
+    <ClInclude Include="..\..\timer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

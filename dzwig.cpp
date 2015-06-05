@@ -8,6 +8,7 @@
 #include "font.hpp"
 #include "object.hpp"
 
+
 namespace dzwig
 {
 
@@ -46,6 +47,9 @@ namespace dzwig
 
         dzwig_wysiegnik.setParent( &dzwig_ramie );
 
+
+		
+
         figura = new Figura;
         figura->setPosition( 400, 0 );
         figury.push_back( figura );
@@ -64,12 +68,14 @@ namespace dzwig
 
 	void draw( SDL_Renderer* renderer )
 	{
+		
         SDL_SetRenderDrawColor( renderer, 110, 86, 63, 255 );
         SDL_Rect rect = {0,GROUNDLEVEL,WORLDSIZE_X, WORLDSIZE_Y - GROUNDLEVEL };
         SDL_RenderFillRect( renderer, &rect );
         SDL_SetRenderDrawColor( renderer, 64, 110, 62, 255 );
         rect.h = 16;
         SDL_RenderFillRect( renderer, &rect );
+	
 
         dzwig_podstawa.draw( renderer );
 
