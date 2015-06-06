@@ -1,8 +1,9 @@
+// plik naglowkowy
 #include "dzwig.hpp"
-
+// naglowki biblioteki standardowej
 #include <iostream>
 #include <list>
-
+// naglowki wlasne
 #include "chwytak.hpp"
 #include "figura.hpp"
 #include "font.hpp"
@@ -24,6 +25,7 @@ namespace dzwig
     Figura* figura;
 
     Font* czcionka;
+    Font* czcionkad;
 
 	void init( SDL_Renderer* renderer )
 	{
@@ -31,36 +33,62 @@ namespace dzwig
 
         czcionka = new Font();
         czcionka->setRenderer( renderer );
-        czcionka->setScale( 2 );
+        czcionka->setScale( 1 );
         czcionka->load( "resources/marcinfonto.bmp", 6, 8 );
 
-        dzwig_podstawa.setSize( 128, GROUNDLEVEL-100 );
-        dzwig_podstawa.setPosition( 48, GROUNDLEVEL-dzwig_podstawa.getH()/2 );
+        czcionkad = new Font();
+        czcionkad->setRenderer( renderer );
+        czcionkad->setScale( 1 );
+        czcionkad->load( "resources/marcinfonto14.bmp", 9, 14 );
+
+        dzwig_podstawa.setSize( 128, 500 );
+        dzwig_podstawa.setPosition( 128, GROUNDLEVEL-dzwig_podstawa.getH()/2 );
         dzwig_podstawa.loadImage( renderer, "resources/dzwig.bmp" );
 
         dzwig_ramie.setSize( 720, 32 );
-        dzwig_ramie.setPosition( dzwig_ramie.getW()/2, -dzwig_podstawa.getH()/2+dzwig_ramie.getH()/2*3);
+        dzwig_ramie.setPosition( dzwig_ramie.getW()/2 - 128, -dzwig_podstawa.getH()/2+dzwig_ramie.getH()/2+100);
         dzwig_ramie.setParent( &dzwig_podstawa );
 
-        dzwig_wysiegnik.setSize( 32, 32 );
-        dzwig_wysiegnik.setBounds( -dzwig_ramie.getW()/4, dzwig_ramie.getW()/2 - dzwig_wysiegnik.getW()/2,
+        dzwig_wysiegnik.setSize( 16, 32 );
+        dzwig_wysiegnik.setBounds( -dzwig_ramie.getW()/5, dzwig_ramie.getW()/2 - dzwig_wysiegnik.getW()/2,
                                    dzwig_ramie.getH()/2, dzwig_ramie.getH()/2 );
         dzwig_wysiegnik.setPosition( dzwig_ramie.getW()/2, dzwig_ramie.getH()/2 );
 
         dzwig_wysiegnik.setParent( &dzwig_ramie );
 
+        figura = new Figura( FIGURA_KWADRAT );
+        figura->setPosition( 220, 0 );
+        figury.push_back( figura );
 
-
-
-        figura = new Figura;
+        figura = new Figura( FIGURA_KWADRAT );
         figura->setPosition( 400, 0 );
         figury.push_back( figura );
 
         figura = new Figura( FIGURA_TROJKAT );
-        figura->setPosition( 400, -100 );
+        figura->setPosition( 300, -100 );
         figury.push_back( figura );
 
-        figura = new Figura;
+        figura = new Figura( FIGURA_TROJKAT );
+        figura->setPosition( 500, -100 );
+        figury.push_back( figura );
+
+        figura = new Figura( FIGURA_TROJKAT );
+        figura->setPosition( 450, -100 );
+        figury.push_back( figura );
+
+        figura = new Figura( FIGURA_KOLO );
+        figura->setPosition( 500, -300 );
+        figury.push_back( figura );
+
+        figura = new Figura( FIGURA_KOLO );
+        figura->setPosition( 350, -300 );
+        figury.push_back( figura );
+
+        figura = new Figura( FIGURA_KOLO );
+        figura->setPosition( 300, -300 );
+        figury.push_back( figura );
+
+        figura = new Figura( FIGURA_KOLO );
         figura->setPosition( 400, -300 );
         figury.push_back( figura );
 
@@ -84,6 +112,16 @@ namespace dzwig
         for( std::list<Figura*>::iterator it = figury.begin(); it != figury.end(); it++ ){
             (*it)->draw( renderer );
         }
+
+        int x = 770;
+        int y = 100;
+        int height = 10;
+        czcionkad->print( "Techniki Programowania, zadanie 3.4.3 \"Dzwig\", Marcin Szymczak i Urszula Walicka.", 4, 4 );
+        czcionka->print( "Instrukcja obslugi:", x, y ); y+=height;
+        czcionka->print( "Strzalki kierunkowe - ruch ramienia", x, y ); y+=height;
+        czcionka->print( "Spacja - chwytanie/puszczanie figur", x, y ); y+=height*2;
+        czcionka->print( "Mozna podnosic tylko kola", x, y ); y+=height;
+        czcionka->print( "Mozna ulozyc na sobie max. 3 kola", x, y ); y+=height;
 	}
 
 	void update( float delta )
@@ -105,8 +143,8 @@ namespace dzwig
         if( states[SDL_SCANCODE_DOWN] ){
             dzwig_wysiegnik.setSize( dzwig_wysiegnik.getW(), dzwig_wysiegnik.getH()+CHWYTAK_VSPEED*delta );
         }
-
-        if( states[SDL_SCANCODE_UP] ){
+        // Podnoszenie wysiegnika
+        if( states[SDL_SCANCODE_UP] && dzwig_wysiegnik.getH() > 10 ){
             dzwig_wysiegnik.setSize( dzwig_wysiegnik.getW(), dzwig_wysiegnik.getH()-CHWYTAK_VSPEED*delta );
         }
 

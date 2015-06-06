@@ -10,7 +10,7 @@
 namespace dzwig
 {
     const float CHWYTAK_HSPEED = 250;
-    const float CHWYTAK_VSPEED = 100;
+    const float CHWYTAK_VSPEED = 200;
 
 
     const int WORLDSIZE_X = 1000;

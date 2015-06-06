@@ -16,8 +16,8 @@ namespace dzwig
         int shape;
         bool gravity;
 
-        static const int W = 80;
-        static const int H = 80;
+        static const int W = 40;
+        static const int H = 40;
 
         public:
         Figura();
@@ -30,6 +30,7 @@ namespace dzwig
         virtual void setPosition( float x, float y );
         virtual bool collides( float tx, float ty );
         void setShape( int shape );
+        int getShape();
     };
 
 }

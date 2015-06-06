@@ -88,7 +88,7 @@ namespace dzwig
         if( grab ){
             grab->setGravity( true );
             grab = NULL;
-        }else if( hover ){
+        }else if( hover && hover->getShape() == FIGURA_KOLO ){
             grab = hover;
             grab_x = grab->getAbsX() - abs_x;
             grab_y = grab->getAbsY() - ( abs_y + h/2 );
