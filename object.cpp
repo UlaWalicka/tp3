@@ -81,8 +81,8 @@ namespace dzwig
 		SDL_SetRenderDrawColor( renderer, 255, 255, 0, 255 );
 		SDL_Rect rect = { abs_x - w/2, abs_y - h/2, w, h };
 		SDL_RenderDrawRect( renderer, &rect );
-		
-		
+
+
 
 
         drawChildren( renderer ); // przekaz rysowanie do dzieci tego obiektu
@@ -93,14 +93,6 @@ namespace dzwig
         for( std::list<Object*>::iterator it = children.begin(); it != children.end(); it++ ){
             (*it)->draw( renderer );
         }
-	}
-
-	bool Object::collides( float tx, float ty )
-	{
-        if( tx >= ( this->x - this->w/2 ) && tx < ( this->x + this->w/2 ) &&
-            ty >= ( this->y - this->w/2 ) && ty < ( this->y + this->w/2 ) ){
-                return true;
-            }
 	}
 
 	void Object::setParent( Object* obj )

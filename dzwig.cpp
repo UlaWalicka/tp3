@@ -7,6 +7,7 @@
 #include "figura.hpp"
 #include "font.hpp"
 #include "object.hpp"
+#include "objectbmp.hpp"
 
 
 namespace dzwig
@@ -14,7 +15,7 @@ namespace dzwig
 
     //list<Object*> parents;
 
-    Object dzwig_podstawa;
+    Objectbmp dzwig_podstawa;
     Object dzwig_ramie;
     Chwytak dzwig_wysiegnik;
 
@@ -33,11 +34,12 @@ namespace dzwig
         czcionka->setScale( 2 );
         czcionka->load( "resources/marcinfonto.bmp", 6, 8 );
 
-        dzwig_podstawa.setSize( 64, GROUNDLEVEL-100 );
+        dzwig_podstawa.setSize( 128, GROUNDLEVEL-100 );
         dzwig_podstawa.setPosition( 48, GROUNDLEVEL-dzwig_podstawa.getH()/2 );
+        dzwig_podstawa.loadImage( renderer, "resources/dzwig.bmp" );
 
         dzwig_ramie.setSize( 720, 32 );
-        dzwig_ramie.setPosition( dzwig_ramie.getW()/2, -dzwig_podstawa.getH()/2+dzwig_ramie.getH()/3);
+        dzwig_ramie.setPosition( dzwig_ramie.getW()/2, -dzwig_podstawa.getH()/2+dzwig_ramie.getH()/2*3);
         dzwig_ramie.setParent( &dzwig_podstawa );
 
         dzwig_wysiegnik.setSize( 32, 32 );
@@ -48,7 +50,7 @@ namespace dzwig
         dzwig_wysiegnik.setParent( &dzwig_ramie );
 
 
-		
+
 
         figura = new Figura;
         figura->setPosition( 400, 0 );
@@ -68,22 +70,20 @@ namespace dzwig
 
 	void draw( SDL_Renderer* renderer )
 	{
-		
+
         SDL_SetRenderDrawColor( renderer, 110, 86, 63, 255 );
         SDL_Rect rect = {0,GROUNDLEVEL,WORLDSIZE_X, WORLDSIZE_Y - GROUNDLEVEL };
         SDL_RenderFillRect( renderer, &rect );
         SDL_SetRenderDrawColor( renderer, 64, 110, 62, 255 );
         rect.h = 16;
         SDL_RenderFillRect( renderer, &rect );
-	
+
 
         dzwig_podstawa.draw( renderer );
 
         for( std::list<Figura*>::iterator it = figury.begin(); it != figury.end(); it++ ){
             (*it)->draw( renderer );
         }
-
-        czcionka->print( "ULKA OBCZAJ TEN TEKST ;) ( a jak jest dla Ciebie za duzy to nacisnij M )", 100, 100 );
 	}
 
 	void update( float delta )

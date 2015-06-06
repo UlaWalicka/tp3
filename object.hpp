@@ -30,14 +30,14 @@ namespace dzwig
         virtual void setSize( float w, float h );
         float getW();
         float getH();
+
         // logika obiektu
         // delta - czas w milisekundach od ostatniego wywolania
         virtual void update( float delta );
         void updateChildren( float delta );
-        //
+        // rysowanie
         virtual void draw( SDL_Renderer* renderer );
         void drawChildren( SDL_Renderer* renderer );
-        virtual bool collides( float tx, float ty );
 
         void setParent( Object* parent );
 

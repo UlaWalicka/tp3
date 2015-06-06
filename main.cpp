@@ -11,8 +11,6 @@ int main( int argc, char *argv[] )
     {
         SDL_Window* window;
         SDL_Renderer* renderer;
-		SDL_Surface* surface;
-		SDL_Texture* pdst;
 
         if(!SDL_CreateWindowAndRenderer( dzwig::WORLDSIZE_X, dzwig::WORLDSIZE_Y, 0, &window, &renderer )){
             SDL_Event event;
@@ -61,7 +59,7 @@ int main( int argc, char *argv[] )
     }else{
         printf("SDL_Init error! %s", SDL_GetError() );
     }
-	
+
     SDL_Quit();
 
     return 0;

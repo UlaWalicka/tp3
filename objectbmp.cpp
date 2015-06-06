@@ -2,61 +2,42 @@
 #include "object.hpp"
 
 namespace dzwig{
-Objectbmp::Objectbmp()
-{
-		obraz = this->obraz;
-		surface = SDL_LoadBMP(obraz);     
-       pdst = SDL_CreateTextureFromSurface(renderer, surface);
-       SDL_RenderCopy(renderer, pdst, &rect, &rect);
-        SDL_RenderPresent(renderer);
 
-
-}
-Objectbmp* base;
-base = new Objectbmp;
-base -> obraz="resources/dzwig.bmp";
-
-
-
-void Objectbmp::setRenderer( SDL_Renderer* renderer )
-{
-    this->renderer = renderer;
-}
-
-int Objectbmp::load( const char* obraz, int charw, int charh )
-{
-    SDL_Surface* surface = SDL_LoadBMP( obraz );
-    Uint32 key = SDL_MapRGB( surface->format, 255, 255, 255 );
-    SDL_SetColorKey( surface, SDL_TRUE, key );
-
-    if( !surface ){
-        printf("Couldn't open file %s", obraz );
-        return -1;
-    }
-    texture = SDL_CreateTextureFromSurface( renderer, surface );
-    if( !texture ){
-        printf("Couldn't create a texture out of %s", obraz );
-        return -2;
-    }
-    SDL_FreeSurface( surface );
-
-    this->charw = charw;
-    this->charh = charh;
-
-    return 0;
-}
-
-void Objectbmp::print( const char* pdst, int x, int y )
-{
-    while( *pdst )
+    Objectbmp::Objectbmp()
     {
-       
-        SDL_Rect srcrect = {charw, 0, charw, charh};
-        SDL_Rect destrect = {x,y, charw, charh};
-        SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
-        if( SDL_RenderCopy( renderer, texture, &srcrect, &destrect ) )
-            printf( "SDL_RenderCopy error! '%s'", SDL_GetError() );
- 
+        texture = NULL;
     }
 
-}}
+    int Objectbmp::loadImage( SDL_Renderer* renderer, const char* path )
+    {
+        // Zaladuj obrazek do surface
+        SDL_Surface* surface = SDL_LoadBMP( path );
+        Uint32 key = SDL_MapRGB( surface->format, 255, 255, 255 ); // kolor bialy jest dla nas przezroczysty
+        SDL_SetColorKey( surface, SDL_TRUE, key );
+
+        if( !surface ){
+            printf("Couldn't open file %s", path );
+            return -1;
+        }
+        texture = SDL_CreateTextureFromSurface( renderer, surface );
+        if( !texture ){
+            printf("Couldn't create a texture out of %s", path );
+            return -2;
+        }
+        SDL_FreeSurface( surface );
+
+        return 0;
+    }
+
+    void Objectbmp::draw( SDL_Renderer* renderer )
+    {
+        if( !texture )
+            Object::draw( renderer );
+        else{
+		SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
+        SDL_Rect dest{x-w/2,y-h/2,w,h};
+        SDL_RenderCopy( renderer, texture, NULL, &dest );
+        drawChildren( renderer ); // przekaz rysowanie do dzieci tego obiektu
+        }
+    }
+}

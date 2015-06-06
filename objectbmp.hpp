@@ -5,25 +5,13 @@
 
 namespace dzwig{
 class Objectbmp: public Object{
-	
-	public:
-		SDL_Surface* surface;
-        std::string obraz;
-		SDL_Texture* pdst;
-
+    private:
 		SDL_Texture* texture;
-		SDL_Renderer* renderer;
-		int charw,charh;
-		int scale;
+	public:
+        Objectbmp();
 
-		
-		Objectbmp();
-
-		void setRenderer( SDL_Renderer* renderer );
-		int load( const char* obraz, int charw, int charh );
-		void print( const char* pdst, int x, int y );
-
-
+		int loadImage( SDL_Renderer* renderer, const char* path );
+        virtual void draw( SDL_Renderer* renderer );
 };
 
 
