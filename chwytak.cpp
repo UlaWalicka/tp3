@@ -16,10 +16,20 @@ namespace dzwig
         this->max_y = max_y;
     }
 
+	void Chwytak::stretch(float amount)
+	{
+		this->h += amount;
+		if (this->abs_y + this->h >= GROUNDLEVEL){
+			this->h = GROUNDLEVEL - abs_y;
+		}
+		else if (this->h <= 40 ){
+			this->h = 40;
+		}
+	}
+
     void Chwytak::updateAbsolutePosition()
     {
         Object::updateAbsolutePosition();
-        this->abs_y+= this->h/2;
     }
 
     void Chwytak::setPosition( float x, float y )
@@ -39,15 +49,6 @@ namespace dzwig
             this->y = y;
     }
 
-    void Chwytak::setSize( float w, float h )
-    {
-        this->w = w;
-        if( this->abs_y+h/2 > GROUNDLEVEL )
-            this->h = (GROUNDLEVEL - this->abs_y)*2;
-        else
-            this->h = h;
-    }
-
     void Chwytak::update( float delta )
     {
         Object::update( delta );
@@ -55,7 +56,7 @@ namespace dzwig
         // spód chwytaka
         float hx, hy;
         hx = abs_x;
-        hy = abs_y + h/2;
+        hy = abs_y + h;
 
         hover = NULL;
         for( std::list<Figura*>::iterator it = figury.begin(); it != figury.end(); it++ ){
@@ -65,8 +66,47 @@ namespace dzwig
             }
         }
 
+		if (lowering){
+			if (!grab && !hover && abs_y + h >= GROUNDLEVEL)
+				lowering = false;
+			else if (!grab && hover){ // && hover->getShape() == FIGURA_KOLO
+				lowering = false;
+				if (hover->getShape() == FIGURA_KOLO && !hover->getUp()){
+					grab = hover;
+					grab_x = grab->getAbsX() - abs_x;
+					grab_y = grab->getAbsY() - (abs_y+h);
+					grab->setGravity(false);
+					if (grab->getDown())
+						grab->getDown()->setUp(NULL);
+					grab->setUp(NULL);
+					grab->setDown(NULL);
+				}
+			}
+			else if (grab){
+				if (Figura* col = collides(grab->getX(), grab->getY() + grab->getH() / 2)){
+					lowering = false;
+					if (col->getShape() == FIGURA_KOLO && !col->getUp() && col->getLevel() < 3 ){
+						grab->setLevel(col->getLevel() + 1);
+						grab->setGravity(true);
+						grab->setDown(col);
+						col->setUp(grab);
+						grab = NULL;
+					}
+				}
+				else if (grab->getY() + grab->getH()/2 >= GROUNDLEVEL){
+					lowering = false;
+
+					grab->setLevel(1);
+					grab = NULL;
+				}
+			}
+		}
+		if (lowering)
+			stretch( CHWYTAK_VSPEED*delta);
+		else
+			stretch(- CHWYTAK_VSPEED*delta);
         if( grab ){
-            grab->setPosition( abs_x + grab_x, abs_y + h/2 + grab_y );
+            grab->setPosition( abs_x + grab_x, abs_y + h + grab_y );
         }
     }
 
@@ -77,22 +117,13 @@ namespace dzwig
 		else
             SDL_SetRenderDrawColor( renderer, 109, 62, 110, 255 );
 
-		SDL_Rect rect = { abs_x - w/2, abs_y - h/2, w, h };
+		SDL_Rect rect = { abs_x - w/2, abs_y, w, h };
 		SDL_RenderDrawRect( renderer, &rect );
-
         drawChildren( renderer );
     }
 
     void Chwytak::tryGrab()
     {
-        if( grab ){
-            grab->setGravity( true );
-            grab = NULL;
-        }else if( hover && hover->getShape() == FIGURA_KOLO ){
-            grab = hover;
-            grab_x = grab->getAbsX() - abs_x;
-            grab_y = grab->getAbsY() - ( abs_y + h/2 );
-            grab->setGravity( false );
-        }
+		lowering = true;
     }
 }

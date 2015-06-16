@@ -10,13 +10,15 @@
 namespace dzwig
 {
     const float CHWYTAK_HSPEED = 250;
-    const float CHWYTAK_VSPEED = 200;
+    const float CHWYTAK_VSPEED = 400;
 
 
     const int WORLDSIZE_X = 1000;
     const int WORLDSIZE_Y = 700;
 
     const int GROUNDLEVEL = WORLDSIZE_Y - 100;
+
+	const int FIGURA_GRAVITY = 300;
 
     extern std::list<Figura*> figury;
 
@@ -27,7 +29,7 @@ namespace dzwig
 	void keyEvent( SDL_KeyboardEvent event );
     void keyDown( int code );
 
-	Figura* collides( float tx, float ty );
+	Figura* collides(float tx, float ty, Figura* fig = NULL);
 }
 
 #endif

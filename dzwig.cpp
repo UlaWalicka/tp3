@@ -45,8 +45,8 @@ namespace dzwig
         dzwig_podstawa.setPosition( 128, GROUNDLEVEL-dzwig_podstawa.getH()/2 );
         dzwig_podstawa.loadImage( renderer, "resources/dzwig.bmp" );
 
-        dzwig_ramie.setSize( 720, 32 );
-        dzwig_ramie.setPosition( dzwig_ramie.getW()/2 - 128, -dzwig_podstawa.getH()/2+dzwig_ramie.getH()/2+100);
+        dzwig_ramie.setSize( 720, 128 );
+        dzwig_ramie.setPosition( dzwig_ramie.getW()/2 - 128, -dzwig_podstawa.getH()/2+dzwig_ramie.getH()/2);
         dzwig_ramie.setParent( &dzwig_podstawa );
 
         dzwig_wysiegnik.setSize( 16, 32 );
@@ -141,11 +141,11 @@ namespace dzwig
 
         // Opuszczanie wysiegnika
         if( states[SDL_SCANCODE_DOWN] ){
-            dzwig_wysiegnik.setSize( dzwig_wysiegnik.getW(), dzwig_wysiegnik.getH()+CHWYTAK_VSPEED*delta );
+            //dzwig_wysiegnik.setSize( dzwig_wysiegnik.getW(), dzwig_wysiegnik.getH()+CHWYTAK_VSPEED*delta );
         }
         // Podnoszenie wysiegnika
         if( states[SDL_SCANCODE_UP] && dzwig_wysiegnik.getH() > 10 ){
-            dzwig_wysiegnik.setSize( dzwig_wysiegnik.getW(), dzwig_wysiegnik.getH()-CHWYTAK_VSPEED*delta );
+            //dzwig_wysiegnik.setSize( dzwig_wysiegnik.getW(), dzwig_wysiegnik.getH()-CHWYTAK_VSPEED*delta );
         }
 
         for( std::list<Figura*>::iterator it = figury.begin(); it != figury.end(); it++ ){
@@ -169,10 +169,10 @@ namespace dzwig
         }
 	}
 
-	Figura* collides( float tx, float ty )
+	Figura* collides( float tx, float ty, Figura* fig )
 	{
         for( std::list<Figura*>::iterator it = figury.begin(); it != figury.end(); it++ ){
-            if( (*it)->collides( tx, ty ) ){
+			if ((!fig || (fig && fig != *it)) && (*it)->collides(tx, ty)){
                 return *it;
             }
         }

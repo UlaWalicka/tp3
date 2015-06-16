@@ -63,4 +63,26 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\resources\dzwig.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\resources\marcinfonto.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\resources\marcinfonto14.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\resources\ramie.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\resources\marcinfonto.xcf">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\resources\marcinfonto14.xcf">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>

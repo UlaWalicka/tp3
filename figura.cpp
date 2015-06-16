@@ -14,7 +14,7 @@
     Po pierwsze:
         figury potrzebują wewnętrznego licznika który zachowuje się tak:
             - jeżeli figura spadnie prosto na ziemię, to ustawiam 1
-            - jeżeli figura spadnie na inną figurę, to zwiększam go o 1
+            - jeżeli figura spadnie na inną figurę, to ustawiam go na figure niżej + 1
             - jeżeli figura zostanie podniesiona ( gravity = false ) to go zeruję
         czyli potrzebuję funkcji w stylu setCount( int ), addCount(), getCount()
 
@@ -55,6 +55,8 @@ namespace dzwig
         shape = FIGURA_KWADRAT;
         w = Figura::W;
         h = Figura::H;
+		level = 0;
+		up = down = NULL;
     }
 
     Figura::Figura( int shape )
@@ -63,7 +65,29 @@ namespace dzwig
         this->shape = shape;
         w = Figura::W;
         h = Figura::H;
+		level = 0;
+		up = down = NULL;
     }
+
+	void Figura::setUp(Figura* fig)
+	{
+		this->up = fig;
+	}
+
+	void Figura::setDown(Figura* fig)
+	{
+		this->down = fig;
+	}
+
+	Figura* Figura::getUp()
+	{
+		return this->up;
+	}
+
+	Figura* Figura::getDown()
+	{
+		return this->down;
+	}
 
     void Figura::setGravity( bool gravity )
     {
@@ -98,25 +122,29 @@ namespace dzwig
 
             case FIGURA_TROJKAT:
             {
-            SDL_Point points[6] = { abs_x, abs_y - h/2, abs_x+w/2, abs_y+h/2,
-                                    abs_x+w/2, abs_y+h/2, abs_x-w/2, abs_y+h/2,
-                                    abs_x-w/2, abs_y+h/2, abs_x, abs_y-h/2};
-            SDL_RenderDrawLines( renderer, points, 6 );
-            }
+				for (int i = 0; i < 4; i++){
+					SDL_Point points[6] = { abs_x, abs_y - h / 2 + i, abs_x + w / 2 - i, abs_y + h / 2 - i,
+						abs_x + w / 2 - i, abs_y + h / 2 - i, abs_x - w / 2 + i, abs_y + h / 2 - i,
+						abs_x - w / 2 + i, abs_y + h / 2 - i, abs_x, abs_y - h / 2 + i };
+					SDL_RenderDrawLines(renderer, points, 6);
+				}
+			}
             break;
 
             case FIGURA_KOLO:
-            drawCircle( renderer, abs_x, abs_y, Figura::W/2, 40 );
-            break;
+				for (int i = 0; i < 4; i++){
+					drawCircle(renderer, abs_x, abs_y, Figura::W / 2 - i, 40);
+				}
+			break;
         }
     }
 
     void Figura::update( float delta )
     {
         if( gravity ){ // mozna spasc
-            Figura* collider = dzwig::collides( x, y+1+h/2 );
-            if( !collider || collider == this )
-                setPosition( x, y+300*delta );
+            Figura* collider = dzwig::collides( x, y+1+h/2, this );
+			if ( !collider )
+				setPosition( x, y+FIGURA_GRAVITY*delta );
         }
     }
 
@@ -132,11 +160,18 @@ namespace dzwig
 
     bool Figura::collides( float tx, float ty )
     {
-
-        //if(
         if( tx >= this->abs_x - this->w/2 && tx < this->abs_x + this->w/2 &&
             ty >= this->abs_y - this->h/2 && ty < this->abs_y + this->h/2 )
             return true;
         return false;
     }
+
+	void Figura::setLevel(int level){
+		this->level = level;
+	}
+
+	int Figura::getLevel(){
+		return this->level;
+	}
+
 }
