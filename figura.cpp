@@ -167,7 +167,12 @@ namespace dzwig
     }
 
 	void Figura::setLevel(int level){
-		this->level = level;
+		if (getShape() == FIGURA_KOLO)
+			this->level = level;
+		else {
+			this->level = 999;
+			//	(this->getUp)->level = 999;
+		}
 	}
 
 	int Figura::getLevel(){
