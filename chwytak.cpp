@@ -76,6 +76,7 @@ namespace dzwig
 					grab_x = grab->getAbsX() - abs_x;
 					grab_y = grab->getAbsY() - (abs_y+h);
 					grab->setGravity(false);
+					grab->setLevel(0);
 					if (grab->getDown())
 						grab->getDown()->setUp(NULL);
 					grab->setUp(NULL);
@@ -86,10 +87,7 @@ namespace dzwig
 				if (Figura* col = collides(grab->getX(), grab->getY() + grab->getH() / 2)){
 					lowering = false;
 					if (col->getShape() == FIGURA_KOLO && !col->getUp() && col->getLevel() < 3 ){
-						grab->setLevel(col->getLevel() + 1);
 						grab->setGravity(true);
-						grab->setDown(col);
-						col->setUp(grab);
 						grab = NULL;
 					}
 				}
