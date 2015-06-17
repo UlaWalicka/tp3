@@ -143,8 +143,15 @@ namespace dzwig
     {
         if( gravity ){ // mozna spasc
             Figura* collider = dzwig::collides( x, y+1+h/2, this );
-			if ( !collider )
-				setPosition( x, y+FIGURA_GRAVITY*delta );
+			if (collider){
+				this->setLevel(collider->getLevel() + 1);
+				this->setDown(collider);
+				collider->setUp(this);
+			}
+			else if (!collider){
+				setPosition(x, y + FIGURA_GRAVITY*delta);
+				this->setLevel(1);
+			}
         }
     }
 
@@ -167,7 +174,11 @@ namespace dzwig
     }
 
 	void Figura::setLevel(int level){
-		this->level = level;
+		if (getShape() == FIGURA_KOLO)
+			this->level = level;
+		else {
+			this->level = 999;
+		}
 	}
 
 	int Figura::getLevel(){

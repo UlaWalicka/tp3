@@ -17,7 +17,7 @@ namespace dzwig
     //list<Object*> parents;
 
     Objectbmp dzwig_podstawa;
-    Object dzwig_ramie;
+    Objectbmp dzwig_ramie;
     Chwytak dzwig_wysiegnik;
 
     std::list<Figura*> figury;
@@ -48,6 +48,7 @@ namespace dzwig
         dzwig_ramie.setSize( 720, 128 );
         dzwig_ramie.setPosition( dzwig_ramie.getW()/2 - 128, -dzwig_podstawa.getH()/2+dzwig_ramie.getH()/2);
         dzwig_ramie.setParent( &dzwig_podstawa );
+        dzwig_ramie.loadImage( renderer, "resources/ramie.bmp" );
 
         dzwig_wysiegnik.setSize( 16, 32 );
         dzwig_wysiegnik.setBounds( -dzwig_ramie.getW()/5, dzwig_ramie.getW()/2 - dzwig_wysiegnik.getW()/2,
