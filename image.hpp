@@ -2,6 +2,7 @@
 #define __IMAGE_HPP
 
 #include <SDL.h>
+#include <cstdio>
 
 struct Image
 {
