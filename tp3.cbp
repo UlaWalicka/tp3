@@ -43,6 +43,8 @@
 		<Unit filename="figura.hpp" />
 		<Unit filename="font.cpp" />
 		<Unit filename="font.hpp" />
+		<Unit filename="image.cpp" />
+		<Unit filename="image.hpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="object.cpp" />
 		<Unit filename="object.hpp" />
