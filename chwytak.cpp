@@ -22,8 +22,8 @@ namespace dzwig
 		if (this->abs_y + this->h >= GROUNDLEVEL){
 			this->h = GROUNDLEVEL - abs_y;
 		}
-		else if (this->h <= 40 ){
-			this->h = 40;
+		else if (this->h <= 64 ){
+			this->h = 64;
 		}
 	}
 
@@ -110,18 +110,24 @@ namespace dzwig
 
     void Chwytak::draw( SDL_Renderer* renderer )
     {
-        if( hover != NULL )
-            SDL_SetRenderDrawColor( renderer, 255, 255, 0, 255 );
-		else
-            SDL_SetRenderDrawColor( renderer, 109, 62, 110, 255 );
+        image_base.draw( renderer, abs_x - 64/2, abs_y, 64.0, 32.0 );
+        image_chwytak.draw( renderer, abs_x - 64/2, abs_y+h-32, 64, 32 );
 
-		SDL_Rect rect = { abs_x - w/2, abs_y, w, h };
-		SDL_RenderDrawRect( renderer, &rect );
+        SDL_SetRenderDrawColor( renderer, 0, 0, 0, 0 );
+        for( int i=-1; i<=1; i++ ){
+        SDL_RenderDrawLine( renderer, abs_x + i, abs_y + 32, abs_x + i, abs_y + h - 32 );
+        }
         drawChildren( renderer );
     }
 
     void Chwytak::tryGrab()
     {
 		lowering = true;
+    }
+
+    void Chwytak::loadImages( SDL_Renderer* renderer )
+    {
+        this->image_base.loadFromFile( renderer, "resources/chwytak_base.bmp" );
+        this->image_chwytak.loadFromFile( renderer, "resources/chwytak.bmp" );
     }
 }

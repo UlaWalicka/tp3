@@ -2,11 +2,12 @@
 #define __OBJECTBMP_HPP
 #include <SDL.h>
 #include "object.hpp"
+#include "image.hpp"
 
 namespace dzwig{
 class Objectbmp: public Object{
     private:
-		SDL_Texture* texture;
+        Image image;
 	public:
         Objectbmp();
 

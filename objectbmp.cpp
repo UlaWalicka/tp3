@@ -5,38 +5,21 @@ namespace dzwig{
 
     Objectbmp::Objectbmp()
     {
-        texture = NULL;
+
     }
 
     int Objectbmp::loadImage( SDL_Renderer* renderer, const char* path )
     {
-        // Zaladuj obrazek do surface
-        SDL_Surface* surface = SDL_LoadBMP( path );
-        if( !surface ){
-            printf("Couldn't open file %s", path );
-            return -1;
-        }
-        Uint32 key = SDL_MapRGB( surface->format, 255, 255, 255 ); // kolor bialy jest dla nas przezroczysty
-        SDL_SetColorKey( surface, SDL_TRUE, key );
-
-        texture = SDL_CreateTextureFromSurface( renderer, surface );
-        if( !texture ){
-            printf("Couldn't create a texture out of %s", path );
-            return -2;
-        }
-        SDL_FreeSurface( surface );
-
+        image.loadFromFile( renderer, path );
         return 0;
     }
 
     void Objectbmp::draw( SDL_Renderer* renderer )
     {
-        if( !texture )
+        if( !image.texture )
             Object::draw( renderer );
         else{
-		SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
-        SDL_Rect dest{abs_x-w/2,abs_y-h/2,w,h};
-        SDL_RenderCopy( renderer, texture, NULL, &dest );
+        image.draw( renderer, abs_x - w/2, abs_y - h/2, w, h );
         drawChildren( renderer ); // przekaz rysowanie do dzieci tego obiektu
         }
     }

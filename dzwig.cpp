@@ -50,12 +50,13 @@ namespace dzwig
         dzwig_ramie.setParent( &dzwig_podstawa );
         dzwig_ramie.loadImage( renderer, "resources/ramie.bmp" );
 
-        dzwig_wysiegnik.setSize( 16, 32 );
-        dzwig_wysiegnik.setBounds( -dzwig_ramie.getW()/5, dzwig_ramie.getW()/2 - dzwig_wysiegnik.getW()/2,
+        dzwig_wysiegnik.setSize( 32, 32 );
+        dzwig_wysiegnik.setBounds( -dzwig_ramie.getW()/5, dzwig_ramie.getW()/2 - dzwig_wysiegnik.getW(),
                                    dzwig_ramie.getH()/2, dzwig_ramie.getH()/2 );
         dzwig_wysiegnik.setPosition( dzwig_ramie.getW()/2, dzwig_ramie.getH()/2 );
 
         dzwig_wysiegnik.setParent( &dzwig_ramie );
+        dzwig_wysiegnik.loadImages( renderer );
 
         figura = new Figura( FIGURA_KWADRAT );
         figura->setPosition( 220, 0 );
