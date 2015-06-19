@@ -8,26 +8,6 @@
 
 #define PI 3.141592654
 
-/*
-    Jak ja widzę maksymalną wielkość wieży
-
-    Po pierwsze:
-        figury potrzebują wewnętrznego licznika który zachowuje się tak:
-            - jeżeli figura spadnie prosto na ziemię, to ustawiam 1
-            - jeżeli figura spadnie na inną figurę, to ustawiam go na figure niżej + 1
-            - jeżeli figura zostanie podniesiona ( gravity = false ) to go zeruję
-        czyli potrzebuję funkcji w stylu setCount( int ), addCount(), getCount()
-
-    Po drugie:
-        chwytak zamiast puszczać obiekt, to powinien po naciśnieciu spacji zjeżdzać cały czas w dół,
-        aż to, co trzyma nie skoliduje.
-        Po kolizji należy odczytać licznik obiektu z którym skolidował ( chyba, że to ziemia, wtedy 0 ) i zwiększony o 1 zapisać do aktualnego obiektu.
-        Jeżeli rezultat jest większy od 3, to nie może pozwolić puścić
-
-    PS. opuszczanie może być zrobione poprzez ustawienie zmiennej typu boolowskiego na true i wracanie z nią na false przy natrafieniu czegokolwiek przez obiekt trzymany
-    PS2. jak by co to krzycz
-    PS3. bonusowe punkty od Marcinka: zrób, że nie można chwytać figur, które są "w środku" wieży ( patrz ich licznik wysokości ).
-*/
 
 namespace dzwig
 {
