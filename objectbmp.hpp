@@ -9,7 +9,6 @@ class Objectbmp: public Object{
     private:
         Image image;
 	public:
-        Objectbmp();
 
 		int loadImage( SDL_Renderer* renderer, const char* path );
         virtual void draw( SDL_Renderer* renderer );

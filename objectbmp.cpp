@@ -3,11 +3,7 @@
 
 namespace dzwig{
 
-    Objectbmp::Objectbmp()
-    {
-
-    }
-
+    
     int Objectbmp::loadImage( SDL_Renderer* renderer, const char* path )
     {
         image.loadFromFile( renderer, path );
